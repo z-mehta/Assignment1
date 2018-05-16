@@ -429,12 +429,140 @@ while (count):
 
 
 
-            # menu 6
 
     if(choice == 5):
         point=input("Enter new Pass/Fail point : ")
 
+        print """ID\tLN\tFN\tA1\tA2\tPR\tT1\tT2\tGR\tFL\n"""
 
+
+        list=range(10)
+        with open("class.txt","r") as f:
+            data1=f.readlines()
+            for line1 in data1:
+                id=line1.rstrip().split("|").pop(0)
+                ln=line1.rstrip().split("|").pop(2)
+                fn=line1.rstrip().split("|").pop(1)
+                list[0]=id
+                list[1]=ln
+                list[2]=fn
+
+
+
+
+
+                #print(line1)
+                with open("a1.txt","r") as f:
+                    atotal1=f.readline().rstrip()
+                    data=f.readlines()
+                    for line in data:
+                        if list[0] in line:
+                            list1=[]
+                            list1=line.rstrip().split("|")
+                            list[3]=line.rstrip().split("|").pop(1)
+                            break
+                        else:
+                            list[3]=0
+
+                with open("a2.txt","r") as f:
+                    atotal2=f.readline().rstrip()
+                    data=f.readlines()
+                    for line in data:
+                        if list[0] in line:
+                            list1=[]
+                            list1=line.rstrip().split("|")
+                            list[4]=line.rstrip().split("|").pop(1)
+                            break
+                        else:
+                            list[4]=0
+
+                with open("project.txt","r") as f:
+                    ptotal=f.readline().rstrip()
+                    data=f.readlines()
+                    for line in data:
+                        if list[0] in line:
+                            list1=[]
+                            list1=line.rstrip().split("|")
+                            list[5]=line.rstrip().split("|").pop(1)
+                            break
+                        else:
+                            list[5]=0
+
+                with open("test1.txt","r") as f:
+                    ttotal1=f.readline().rstrip()
+                    data=f.readlines()
+                    for line in data:
+                        if list[0] in line:
+                            list1=[]
+                            list1=line.rstrip().split("|")
+                            list[6]=line.rstrip().split("|").pop(1)
+                            break
+                        else:
+                            list[6]=0
+
+                with open("test2.txt","r") as f:
+                    ttotal2=f.readline().rstrip()
+                    data=f.readlines()
+                    for line in data:
+                        if list[0] in line:
+                            list1=[]
+                            list1=line.rstrip().split("|")
+                            list[7]=line.rstrip().split("|").pop(1)
+                            break
+                        else:
+                            list[7]=0
+
+
+                #marks/maxmarks*weightage
+                list[8]= ((float(list[3])/float(atotal1))*7.5) + ((float(list[4]))/float(atotal2)*7.5) + ((float(list[5])/float(ptotal))*25) +  \
+                         ((float(list[6])/float(ttotal1))*30) + ((float(list[7])/float(ttotal2))*30)
+
+                #final
+                graderange=(100 - point)/7
+                c=graderange+point
+                b=c+graderange
+                b1=b+graderange
+                b2=b1+graderange
+                a=b2+graderange
+                a1=a+graderange
+                a2=a1+graderange
+
+                if (list[8]<point):
+                    list[9]="F"
+                if ( point<= list[8] <=c ):
+                    list[9]="C"
+                if ((c+1)<= list[8] <=b):
+                    list[9]="B-"
+                if ((b+1)<= list[8] <=b1):
+                    list[9]="B"
+                if ((b1+1)<= list[8] <=b2):
+                    list[9]="B+"
+                if ((b2+1)<= list[8] <=a):
+                    list[9]="A-"
+                if ((a+1)<= list[8] <=a1):
+                    list[9]="A"
+                if ((a1+1)<= list[8] <=100):
+                    list[9]="A+"
+
+
+
+                student_tuples.append(tuple(list))
+              #  print '{:5}'.format(list[0])+"\t"+'{:6}'.format(list[1])+"\t"+'{:6}'.format(list[2])+"\t\t"+str(list[3])+\
+               #       "\t\t"+str(list[4])+"\t\t"+str(list[5])+"\t\t"+str(list[6])+"\t\t"+str(list[7])+"\t\t"+ str(int(list[8]))+"\t\t"+list[9]+"\n"
+
+
+
+        student_tuples1= sorted(student_tuples, key=lambda student: student[0])
+        for name in student_tuples1:
+            y=name[1]
+            #print y
+            # print student_tuples
+            print '{:5}'.format(name[0])+"\t"+'{:6}'.format(name[1])+"\t"+'{:6}'.format(name[2])+"\t"+str(name[3])+ \
+              "\t"+str(name[4])+"\t"+str(name[5])+"\t"+str(name[6])+"\t"+str(name[7])+"\t"+ str(int(name[8]))+"\t"+name[9]+"\n"
+
+
+
+ # menu 6
     if(choice == 6):
         print "Good Bye"
         count=False
